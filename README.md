@@ -48,7 +48,8 @@ E-mail, matrícula e código da disciplina recebem um sufixo com data/hora e
 Os registros criados permanecem no banco local para consulta pelo Swagger.
 
 O workflow `.github/workflows/tests.yml` roda em pushes e pull requests para
-`main`. Ele instala as dependências, inicia o MongoDB e a API, aguarda a API
+`main`, e também pode ser iniciado manualmente pelo botão **Run workflow**.
+Ele instala as dependências, inicia o MongoDB e a API, aguarda a API
 responder e executa `npm test`. As variáveis são definidas no próprio workflow,
 usando somente as credenciais de demonstração já públicas no projeto original.
 
