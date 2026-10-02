@@ -1,5 +1,60 @@
 # Gestão de Alunos API
 
+[![Testes de API](https://github.com/jeffmonteiroo/gestao-de-alunos-api/actions/workflows/tests.yml/badge.svg)](https://github.com/jeffmonteiroo/gestao-de-alunos-api/actions/workflows/tests.yml)
+
+## Ambiente local da atividade PGATS
+
+Pré-requisitos: Node.js 20.19 ou superior, npm e Docker Desktop em execução.
+
+```bash
+npm ci
+cp .env.example .env
+docker compose up -d --wait
+npm start
+```
+
+A API fica em `http://127.0.0.1:3000` e o Swagger em
+`http://127.0.0.1:3000/api-docs`. O Dotenv carrega a configuração do `.env`,
+que está no `.gitignore`. O banco local desta atividade é
+`gestao-de-alunos-pgats`.
+
+Em outro terminal, na mesma pasta, execute `npm test`. A API precisa continuar
+em execução para os testes externos. São quatro testes: dois testes de login
+do projeto original e dois cenários completos de entrega de trabalho.
+
+Para parar somente o MongoDB deste projeto, execute `docker compose stop`.
+
+## Automação de testes da atividade PGATS
+
+Este repositório é um fork de [juliodelimas/gestao-de-alunos-api](https://github.com/juliodelimas/gestao-de-alunos-api).
+A automação usa **Mocha**, **SuperTest** e **Chai**.
+
+Cada cenário executa o fluxo: login como administrador → cadastro do aluno →
+cadastro da disciplina → matrícula → login como o aluno cadastrado → entrega
+do trabalho → consulta da entrega para confirmar que foi gravada.
+
+Os dados dos dois cenários estão em `test/fixtures/entregas.json`. O teste
+`test/external/fluxoEntregaTrabalho.test.js` usa `forEach` para criar um `it`
+por item do JSON, implementando **Data-Driven Testing**. Para adicionar um
+cenário, acrescente um objeto ao arquivo JSON.
+
+Os logins ficam nos helpers `test/helpers/loginAdmin.js` e
+`test/helpers/loginAluno.js`. O helper `test/helpers/api.js` usa a `BASE_URL`
+carregada pelo **Dotenv**. As credenciais de demonstração do admin ficam no
+`.env.example`; copie esse arquivo para `.env` antes da execução local.
+
+E-mail, matrícula e código da disciplina recebem um sufixo com data/hora e
+índice do cenário. Isso permite repetir os testes sem conflitos de cadastro.
+Os registros criados permanecem no banco local para consulta pelo Swagger.
+
+O workflow `.github/workflows/tests.yml` roda em pushes e pull requests para
+`main`. Ele instala as dependências, inicia o MongoDB e a API, aguarda a API
+responder e executa `npm test`. As variáveis são definidas no próprio workflow,
+usando somente as credenciais de demonstração já públicas no projeto original.
+
+Entrega: [repositório](https://github.com/jeffmonteiroo/gestao-de-alunos-api) e
+[execuções do GitHub Actions](https://github.com/jeffmonteiroo/gestao-de-alunos-api/actions).
+
 API REST para gestão de alunos, disciplinas, notas e trabalhos, com persistência em MongoDB.
 
 ## Descrição
@@ -80,7 +135,7 @@ docs/
 
 Pré-requisitos:
 
-- Node.js 18+ (usa `crypto.randomUUID`, disponível nativamente).
+- Node.js 20.19 ou superior (compatível com a versão atual do Mongoose).
 - Uma instância do **MongoDB** acessível (local ou remota).
 
 ```bash

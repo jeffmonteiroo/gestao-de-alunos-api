@@ -1,0 +1,46 @@
+[
+  {
+    "cenario": "deve cadastrar um aluno e entregar um trabalho de testes de API",
+    "aluno": {
+      "nome": "Julia Teste",
+      "email": "julia.teste@example.com",
+      "matricula": "PGATS001",
+      "senha": "aluno123"
+    },
+    "disciplina": {
+      "nome": "Testes de API",
+      "codigo": "API001",
+      "cargaHoraria": 40
+    },
+    "trabalho": {
+      "titulo": "Automacao de testes com SuperTest",
+      "descricao": "Testes do fluxo de entrega de trabalho com Mocha e Chai."
+    },
+    "resultadoEsperado": {
+      "statusHttp": 201,
+      "statusTrabalho": "entregue"
+    }
+  },
+  {
+    "cenario": "deve cadastrar outro aluno e entregar um trabalho de programacao",
+    "aluno": {
+      "nome": "Pedro Teste",
+      "email": "pedro.teste@example.com",
+      "matricula": "PGATS002",
+      "senha": "estudante456"
+    },
+    "disciplina": {
+      "nome": "Programacao Web",
+      "codigo": "WEB002",
+      "cargaHoraria": 60
+    },
+    "trabalho": {
+      "titulo": "Pagina de cadastro de alunos",
+      "descricao": "Exercicio de formularios em HTML."
+    },
+    "resultadoEsperado": {
+      "statusHttp": 201,
+      "statusTrabalho": "entregue"
+    }
+  }
+]
